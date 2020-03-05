@@ -1,14 +1,8 @@
 {
   "users": [
     {
-      "id": 1,
-      "name": "Luis Manuel",
-      "age": 25,
-      "email": "luisMx@mail.com"
-    },
-    {
       "id": 2,
-      "name": "Laura",
+      "name": "Laura Lucia",
       "age": 36,
       "email": "laura@mail.com"
     },
@@ -25,16 +19,16 @@
       "email": "pedro@mail.com"
     },
     {
-      "name": "Juan",
-      "age": 55,
-      "email": "juan@mail.com",
-      "id": 5
-    },
-    {
       "name": "Rito Eduardo García Lara",
       "age": 28,
       "email": "ried@mail.com",
       "id": 1583445672434
+    },
+    {
+      "name": "Victoría ",
+      "age": 25,
+      "email": "mail@domain.com",
+      "id": 1583449037669
     }
   ],
   "posts": [

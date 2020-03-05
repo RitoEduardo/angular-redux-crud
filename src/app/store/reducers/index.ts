@@ -13,7 +13,8 @@ export const reducers = {
 export const getState = ( state ) => state;
 
 export const getCustomersState = createFeatureSelector<fromCustomerReducer.CustomerState>('customers');
-export const getCustomers = createSelector(getCustomersState, fromCustomerReducer.getCustomers );
+// export const getCustomers = createSelector(getCustomersState, fromCustomerReducer.getCustomers );
+export const getCustomers = createSelector(getCustomersState, fromCustomerReducer.customerAdapter.getSelectors().selectAll );
 
 export const getCustomersById = ( id ) => createSelector( getCustomers, ( customers: Customer[] ) => {
   return customers.find( user => user.id === id );

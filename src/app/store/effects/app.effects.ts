@@ -49,7 +49,11 @@ export class CustomerEffects {
     map( ( action: fromCustomerActions.UpdateCustomer ) => action.payload ),
     switchMap( (payload) => this.customerService.updateCustomer( payload )
       .pipe(
-        map( response => new fromCustomerActions.UpdateCustomerSuccess(response) ),
+        // map( response => new fromCustomerActions.UpdateCustomerSuccess(response) ),
+        map( updatedCustomer => new fromCustomerActions.UpdateCustomerSuccess({
+          id: updatedCustomer['id'],
+          changes: updatedCustomer
+        }) ),
         catchError( error => of(new fromCustomerActions.UpdateCustomerFail(error) ) )
       )
     )
