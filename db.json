@@ -17,6 +17,12 @@
       "name": "Carmen",
       "age": 30,
       "email": "carmen@mail.com"
+    },
+    {
+      "id": 4,
+      "name": "Pedro",
+      "age": 28,
+      "email": "pedro@mail.com"
     }
   ],
   "posts": [
