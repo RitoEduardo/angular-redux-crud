@@ -2,9 +2,9 @@
   "users": [
     {
       "id": 1,
-      "name": "Luis",
-      "age": 20,
-      "email": "luis@mail.com"
+      "name": "Luis Manuel",
+      "age": 25,
+      "email": "luisMx@mail.com"
     },
     {
       "id": 2,
@@ -23,6 +23,18 @@
       "name": "Pedro",
       "age": 28,
       "email": "pedro@mail.com"
+    },
+    {
+      "name": "Juan",
+      "age": 55,
+      "email": "juan@mail.com",
+      "id": 5
+    },
+    {
+      "name": "Rito Eduardo García Lara",
+      "age": 28,
+      "email": "ried@mail.com",
+      "id": 1583445672434
     }
   ],
   "posts": [

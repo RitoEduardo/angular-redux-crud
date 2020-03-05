@@ -1,3 +1,39 @@
+<div class="overlay" [ngStyle]="{'display':display}"></div>
+<!-- Modal -->
+<div class="modal" [ngStyle]="{'display':display}" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">{{ isEditModeEnabled ? 'Edit' : 'Add'}} customer</h5>
+        <button (click)="closeModal()" type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <form #myForm="ngForm">
+              <div class="form-group">
+                  <input type="text" class="form-control" placeholder = 'Enter a name'  [(ngModel)]='people.name' name="name" #name>
+              </div>
+              <div class="form-group">
+                  <input type="number" class="form-control" placeholder = 'Enter your age' [(ngModel)]='people.age'  name="age" #age>
+              </div>
+              <div class="form-group">
+                  <input type="email" class="form-control" placeholder = 'Enter your email' [(ngModel)]='people.email' name="email" #email>
+              </div>
+              <!-- <div class="form-group">
+                <input type="text" class="form-control" [(ngModel)]='people.id' name="id" #id hidden>
+              </div> -->
+          </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-dismiss="modal" (click)="closeModal()">Close</button>
+        <input *ngIf="!isEditModeEnabled" type="button" class="btn btn-primary" (click)="addCustomer()" value='Add Customer'>
+        <input *ngIf="isEditModeEnabled" type="button" class="btn btn-success"  (click)="updateCustomer()" value='Update'>
+      </div>
+    </div>
+  </div>
+</div>
+
 <div style="padding-top: 5em;" class="container">
  <!-- <h1> Ready App </h1>
  <button class="btn btn-success"> Click Me </button> -->
@@ -15,22 +51,23 @@
        <th> Name </th>
        <th> Age </th>
        <th> Email </th>
-       <th> Remove </th>
        <th> Edit </th>
+       <th> Remove </th>
      </tr>
    </thead>
    <tbody>
-    <tr *ngFor="let customer of customers" (click)="onSelect(customer.id)">
+    <tr *ngFor="let customer of customers"> <!-- (click)="onSelect(customer.id)" -->
       <td> {{ customer.name }}</td>
       <td> {{ customer.age }}</td>
       <td> {{ customer.email }}</td>
       <td>
-        <button class="btn btn-danger fa fa-trash-o"> remove </button>
+        <button (click)="editCustomer(customer)" class="btn btn-primary fa fa-pencil-square-o"> edit </button>
       </td>
       <td>
-        <button class="btn btn-primary fa fa-pencil-square-o"> edit </button>
+        <button (click)="removeCustomer(customer.id)"  class="btn btn-danger fa fa-trash-o"> remove </button>
       </td>
     </tr>
    </tbody>
  </table>
+ <button (click)="openModalDialog()" class="btn btn-primary">Add customer</button>
 </div>

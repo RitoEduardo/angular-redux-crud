@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import * as fromStore from './store';
 import { Customer } from './models/customer.model';
 import { CustomersService } from './services/customers.service';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -10,8 +11,11 @@ import { CustomersService } from './services/customers.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  title = 'crud-app';
+
   customers: Customer[] = [];
+  display = 'none';
+  people: Customer = {};
+  isEditModeEnabled = false;
 
   constructor( private store: Store<fromStore.AppState> , private customerService: CustomersService ) {
     // this.store.select('customers').subscribe( rs => {
@@ -36,16 +40,60 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.store.dispatch( new fromStore.LoadCustomer() );
+    this.store.dispatch( new fromStore.LoadCustomers() );
     // this.customerService.getCustomers().subscribe( rs => {
     //   console.log( rs );
     //   this.customers = rs;
     // });
   }
 
-  onSelect( id ) {
-    this.store.select(fromStore.getCustomersById(id) ).subscribe( infoUser => {
-      console.log('get user', infoUser );
-    });
+  // onSelect( id ) {
+  //   this.store.select(fromStore.getCustomersById(id) ).subscribe( infoUser => {
+  //     console.log('get user', infoUser );
+  //   });
+  // }
+
+  openModalDialog() {
+    this.display = 'block';
   }
+
+  closeModal() {
+    this.people = {};
+    this.display = 'none';
+    this.isEditModeEnabled = false;
+  }
+
+  editCustomer(customer) {
+    this.display = 'block';
+    this.isEditModeEnabled = true;
+    this.people = { ...customer };
+  }
+
+  addCustomer() {
+    const newCustomer = {
+      ...this.people,
+      id : new Date().getTime()
+    };
+    if ( newCustomer.email !== undefined && newCustomer.name !== null ) {
+      this.store.dispatch( new fromStore.AddCustomer( newCustomer) );
+    } else {
+      console.log('Error', newCustomer );
+    }
+    this.closeModal();
+
+  }
+
+  updateCustomer() {
+    console.log('?update', this.people );
+    this.store.dispatch( new fromStore.UpdateCustomer( this.people ) );
+    this.closeModal();
+  }
+
+  removeCustomer( customerId: number ) {
+    console.log('?delete', customerId );
+    if ( confirm('Are you sure to delete customer?') ) {
+      this.store.dispatch( new fromStore.DeleteCustomer( customerId ) );
+    }
+  }
+
 }

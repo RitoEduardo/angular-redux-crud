@@ -26,7 +26,7 @@ export function reducer(state = initialState, action ) {
       };
     }
 
-    case fromCustomActions.LOAD_CUSTOMER_SUCCESS : {
+    case fromCustomActions.LOAD_CUSTOMERS_SUCCESS : {
       const data = action.payload;
       return {
         ...data,
@@ -36,7 +36,69 @@ export function reducer(state = initialState, action ) {
       };
     }
 
-    case fromCustomActions.LOAD_CUSTOMER_FAIL : {
+    case fromCustomActions.LOAD_CUSTOMERS_FAIL : {
+      return {
+        ...state,
+        loaded: false,
+        loading: false,
+        error: action.payload
+      };
+    }
+
+    case fromCustomActions.ADD_CUSTOMER_SUCCESS : {
+      return {
+        ...state,
+        data: [...state.data, action.payload ],
+        loaded: true,
+        loading: true
+      };
+    }
+
+    case fromCustomActions.ADD_CUSTOMER_FAIL : {
+      return {
+        ...state,
+        loaded: false,
+        loading: false,
+        error: action.payload
+      };
+    }
+
+    case fromCustomActions.UPDATE_CUSTOMER_SUCCESS : {
+      const data = state.data.map( customer => {
+        if (customer.id === action.payload.id) {
+          return action.payload;
+        }
+        return customer;
+      });
+
+      return {
+        ...state,
+        data,
+        loaded: true,
+        loading: false
+      };
+    }
+
+    case fromCustomActions.UPDATE_CUSTOMER_FAIL : {
+      return {
+        ...state,
+        loaded: false,
+        loading: false,
+        error: action.payload
+      };
+    }
+
+    case fromCustomActions.DELETE_CUSTOMER_SUCCESS : {
+      const userID = action.payload;
+      return {
+        ...state,
+        data: state.data.filter( user => user.id !== userID ),
+        loaded: true,
+        loading: true
+      };
+    }
+
+    case fromCustomActions.DELETE_CUSTOMER_FAIL : {
       return {
         ...state,
         loaded: false,
